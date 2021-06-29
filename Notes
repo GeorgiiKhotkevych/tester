@@ -1,0 +1,29 @@
+sudo apt update -y
+sudo apt install apache2 -y
+sudo apt install wordpress -y
+sudo apt install php -y
+sudo apt install libapache2-mod-php -y
+sudo apt install mysql-server -y
+sudo apt install php-mysql -y
+sudo apt install nano
+
+cd /etc/apache2/sites-available/
+sudo nano wordpress.conf
+Alias /blog /usr/share/wordpress
+
+<Directory /usr/share/wordpress>
+    Options FollowSymLinks
+    AllowOverride Limit Options FileInfo
+    DirectoryIndex index.php
+    Order allow,deny
+    Allow from all
+</Directory>
+<Directory /usr/share/wordpress/wp-content>
+    Options FollowSymLinks
+    Order allow,deny
+    Allow from all
+</Directory>
+
+sudo a2ensite wordpress
+sudo a2enmod rewrite
+sudo service apache2 reload
